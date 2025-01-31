@@ -1,0 +1,129 @@
+import React, { useState } from "react";
+// Update imports with relative paths
+import { Card, CardContent } from "./components/ui/Card";
+import { Button } from "./components/ui/Button";
+import { LineChart, BarChart, PieChart } from "./components/ui/Charts"; 
+import { Input } from "./components/ui/Input";
+import { Textarea } from "./components/ui/Textarea";
+import { Tabs, TabsList, TabsTrigger } from "./components/ui/Tabs";
+import { Switch } from "./components/ui/Switch";
+import { Map } from "./components/ui/Map";
+import { Badge } from "./components/ui/Badge";
+
+export default function SmartFarmDashboard() {
+  const [alertsEnabled, setAlertsEnabled] = useState(false);
+
+  const toggleSwitch = () => {
+    setAlertsEnabled(!alertsEnabled);
+  };
+
+  return (
+    <div className="p-6 grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+      {/* Dashboard Overview */}
+      <Card>
+        <CardContent>
+          <h2 className="text-xl font-bold">Weather Overview</h2>
+          <p>🌦 Temperature: 27°C | Humidity: 65%</p>
+          <p>💨 Wind Speed: 12 km/h</p>
+        </CardContent>
+      </Card>
+
+      <Card>
+        <CardContent>
+          <h2 className="text-xl font-bold">Soil Conditions</h2>
+          <p>🌱 Moisture: 45% | pH: 6.5</p>
+        </CardContent>
+      </Card>
+
+      <Card>
+        <CardContent>
+          <h2 className="text-xl font-bold">Crop Health</h2>
+          <p>🚜 Healthy Crops: 85% | Diseased: 15%</p>
+        </CardContent>
+      </Card>
+
+      {/* Farm Data Input */}
+      <Card className="col-span-2">
+        <CardContent>
+          <h2 className="text-xl font-bold">Farm Data Input</h2>
+          <Input placeholder="Enter Crop Name" className="mt-2" />
+          <Input placeholder="Enter Water Usage (Liters)" className="mt-2" />
+          <Textarea placeholder="Additional Notes" className="mt-2" />
+          <Button className="mt-4">Submit</Button>
+        </CardContent>
+      </Card>
+
+      {/* Analytics & Insights */}
+      <Card>
+        <CardContent>
+          <h2 className="text-xl font-bold">Analytics & Insights</h2>
+          <LineChart
+            data={[
+              { x: "Week 1", y: 20 },
+              { x: "Week 2", y: 30 },
+            ]}
+          />
+        </CardContent>
+      </Card>
+
+      {/* Market Access */}
+      <Card className="col-span-3">
+        <CardContent>
+          <h2 className="text-xl font-bold">Marketplace</h2>
+          <Tabs>
+            <TabsList>
+              <TabsTrigger>Buy</TabsTrigger>
+              <TabsTrigger>Sell</TabsTrigger>
+            </TabsList>
+          </Tabs>
+          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4 mt-4">
+            <Card>
+              <CardContent>
+                <h3 className="font-semibold">Wheat (50kg)</h3>
+                <p>💲 Price: $30</p>
+                <Button className="mt-2">Contact Seller</Button>
+              </CardContent>
+            </Card>
+            <Card>
+              <CardContent>
+                <h3 className="font-semibold">Corn (100kg)</h3>
+                <p>💲 Price: $50</p>
+                <Button className="mt-2">Contact Seller</Button>
+              </CardContent>
+            </Card>
+          </div>
+        </CardContent>
+      </Card>
+
+      {/* Notifications & Alerts */}
+      <Card>
+        <CardContent>
+          <h2 className="text-xl font-bold">Notifications & Alerts</h2>
+          <Badge variant="warning">
+            🚨 Soil moisture is low! Consider watering your crops.
+          </Badge>
+          <Badge variant="info" className="mt-2">
+            📢 New buyer request for wheat in your area.
+          </Badge>
+          <Badge variant="success" className="mt-2">
+            ✅ Weather alert: Heavy rain expected tomorrow.
+          </Badge>
+          <Switch
+            label="Enable Alerts"
+            className="mt-4"
+            checked={alertsEnabled}
+            onChange={toggleSwitch}
+          />
+        </CardContent>
+      </Card>
+
+      {/* Farm Location & Map */}
+      <Card className="col-span-3">
+        <CardContent>
+          <h2 className="text-xl font-bold">Farm Location</h2>
+          <Map className="h-64" />
+        </CardContent>
+      </Card>
+    </div>
+  );
+}
